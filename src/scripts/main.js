@@ -134,6 +134,9 @@ class App {
 
   /* Called when user clicks start button in renderer.js */
   async startCalibration() {
+    // Resume AudioContext after user interaction
+    await this.audioPlayer.resumeAudioContext();
+    
     if (!this.poseController.initialized) await this.poseController.initialize();
   }
 
