@@ -59,7 +59,9 @@ export default class Renderer {
       conductingOverlay: document.querySelector('.conducting-overlay')
     }
 
-    this.elems.songTitle.innerHTML = this.props.songTitle;
+    // BEGIN CUSTOM ROSALYN THEMING
+    this.elems.songTitle.innerHTML = "Revenue in C-Suite Major";
+    // END CUSTOM ROSALYN THEMING
     this.prevTempo = null;
     this.tempo = null;
     this.isFinishPage = false;
@@ -359,5 +361,80 @@ export default class Renderer {
     this.elems.calibrationOverlay.classList.remove('success');
     document.querySelector('.instructions p').innerHTML = "Fit your body in frame, Maestro. This is a one person experiment.";
     document.querySelector('.instructions p').style.transform = "scale(1)";
+    
+    // BEGIN CUSTOM ROSALYN THEMING
+    // Remove end message if it exists
+    const existingMessage = document.querySelector('.rosalyn-end-message');
+    if (existingMessage) {
+      existingMessage.remove();
+    }
+    // END CUSTOM ROSALYN THEMING
   }
+
+  // BEGIN CUSTOM ROSALYN THEMING
+  showRosalynEndMessage() {
+    // Create the end message element
+    const messageContainer = document.createElement('div');
+    messageContainer.className = 'rosalyn-end-message';
+    messageContainer.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      font-family: 'Georgia', serif;
+      font-size: 18px;
+      line-height: 1.6;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      max-width: 500px;
+    `;
+    
+    messageContainer.innerHTML = `
+      <div style="margin-bottom: 20px; font-size: 22px; font-weight: bold;">
+        "When everyone's playing from the same score, magic happens."
+      </div>
+      <div style="font-style: italic; margin-bottom: 30px; color: #ff8976;">
+        — Inspired by Rosalyn Santa Elena
+      </div>
+      <div style="margin-bottom: 30px;">
+        Want to see how we align GTM teams? Let's jam.
+      </div>
+      <a href="https://your-link.com" target="_blank" style="
+        display: inline-block;
+        background: #ff8976;
+        color: white;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      " onmouseover="this.style.background='#ff6b5a'" onmouseout="this.style.background='#ff8976'">
+        Learn More
+      </a>
+    `;
+    
+    document.body.appendChild(messageContainer);
+    
+    // Fade in the message
+    setTimeout(() => {
+      messageContainer.style.opacity = '1';
+    }, 100);
+    
+    // Auto-remove after 10 seconds
+    setTimeout(() => {
+      messageContainer.style.opacity = '0';
+      setTimeout(() => {
+        if (messageContainer.parentNode) {
+          messageContainer.remove();
+        }
+      }, 1000);
+    }, 10000);
+  }
+  // END CUSTOM ROSALYN THEMING
 }

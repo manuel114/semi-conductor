@@ -20,18 +20,45 @@
 }
 
 .start-logo-image {
-  max-width: 500px;
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
 }
 
+// BEGIN CUSTOM ROSALYN THEMING
+.start-title {
+  margin-top: 0;
+  margin-bottom: 40px;
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+// END CUSTOM ROSALYN THEMING
+
 .start-subtitle {
-  margin-top: -50px;
-  margin-bottom: 52px;
+  margin-top: 0;
+  margin-bottom: 25px;
   color: white;
   font-size: 19px;
   font-weight: bold;
   text-transform: uppercase;
   color: rgba(255,255,255,0.7);
 }
+
+// BEGIN CUSTOM ROSALYN THEMING
+.start-subtext {
+  margin-bottom: 60px;
+  color: rgba(255,255,255,0.6);
+  font-size: 16px;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  text-align: center;
+}
+// END CUSTOM ROSALYN THEMING
 
 /* Footer */
 

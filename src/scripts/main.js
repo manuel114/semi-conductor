@@ -46,6 +46,11 @@ class App {
       graphicsLoaded: false
     }
 
+    // BEGIN CUSTOM ROSALYN THEMING
+    this.conductingStartTime = null;
+    this.endMessageShown = false;
+    // END CUSTOM ROSALYN THEMING
+
     this.renderer = new Renderer({
       state: this.state,
       songTitle: song.header.name,
@@ -110,6 +115,16 @@ class App {
       this.state.finished = true;
       this.renderer.renderFinishPage();
     }
+    
+    // BEGIN CUSTOM ROSALYN THEMING
+    // Check if we should show the end message (after 90 seconds of conducting)
+    if (this.state.conducting && !this.endMessageShown && this.conductingStartTime) {
+      const conductingDuration = (Date.now() - this.conductingStartTime) / 1000;
+      if (conductingDuration >= 90) {
+        this.showEndMessage();
+      }
+    }
+    // END CUSTOM ROSALYN THEMING
   }
 
   /* Called when tempo measurement made in PoseController */
@@ -150,6 +165,9 @@ class App {
       setTimeout(async () => {
         await this.renderer.renderCountdown();
         this.state.conducting = true;
+        // BEGIN CUSTOM ROSALYN THEMING
+        this.conductingStartTime = Date.now();
+        // END CUSTOM ROSALYN THEMING
       }, 1000)
     }, 2000);
   }
@@ -161,7 +179,18 @@ class App {
     this.state.stopped = false;
     this.state.conducting = false;
     this.state.finished = false;
+    // BEGIN CUSTOM ROSALYN THEMING
+    this.conductingStartTime = null;
+    this.endMessageShown = false;
+    // END CUSTOM ROSALYN THEMING
   }
+
+  // BEGIN CUSTOM ROSALYN THEMING
+  showEndMessage() {
+    this.endMessageShown = true;
+    this.renderer.showRosalynEndMessage();
+  }
+  // END CUSTOM ROSALYN THEMING
 }
 
 const app = new App(config);
